@@ -18,7 +18,7 @@ export default function HeroSection() {
     <section
       id="home"
       ref={ref}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden mesh-background"
+      className="relative min-h-[calc(100vh-72px)] flex items-center justify-center overflow-hidden mesh-background pt-14 md:pt-16 pb-6"
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -55,7 +55,7 @@ export default function HeroSection() {
         style={{ y, opacity }}
         className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
-        <div className="space-y-8">
+        <div className="space-y-4 md:space-y-6">
           {/* Floating Avatar */}
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
@@ -66,7 +66,7 @@ export default function HeroSection() {
               damping: 20,
               delay: 0.3,
             }}
-            className="relative mx-auto w-48 h-48 md:w-64 md:h-64"
+            className="relative mx-auto w-32 h-32 md:w-48 md:h-48 mt-6 md:mt-8"
           >
             <div className="absolute inset-0 rounded-full bg-linear-to-r from-indigo-500 via-pink-500 to-teal-500 blur-2xl opacity-50 animate-pulse" />
             <div className="relative w-full h-full rounded-full glass-strong p-2 float-animation overflow-hidden">
@@ -84,7 +84,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <p className="text-lg md:text-xl text-gray-400 mb-2">Hello, I&apos;m</p>
+            <p className="text-sm md:text-lg text-gray-400">Hello, I&apos;m</p>
           </motion.div>
 
           {/* Main Title */}
@@ -92,7 +92,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold"
           >
             <span className="gradient-text">Shashith Rashmika</span>
           </motion.h1>
@@ -102,12 +102,12 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
-            className="space-y-4"
+            className="space-y-2 md:space-y-3"
           >
-            <h2 className="text-2xl md:text-4xl font-semibold text-gray-300">
+            <h2 className="text-lg md:text-2xl lg:text-3xl font-semibold text-gray-300">
               BSc. Information Systems | Full Stack Developer
             </h2>
-            <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-sm md:text-lg text-gray-400 max-w-2xl mx-auto">
               Passionate about building innovative web applications with modern technologies
             </p>
           </motion.div>
@@ -117,18 +117,16 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
+            className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center pt-4 md:pt-6"
           >
             <motion.a
               href="#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group relative px-8 py-4 rounded-full overflow-hidden"
+              className="px-6 md:px-8 py-3 md:py-4 rounded-full bg-indigo-600 hover:bg-indigo-700 transition-colors"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-pink-500 to-teal-500" />
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-pink-600 to-teal-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <span className="relative flex items-center gap-2 text-white font-semibold text-lg">
-                <HiMail className="w-6 h-6" />
+              <span className="flex items-center gap-2 text-white font-semibold text-base md:text-lg">
+                <HiMail className="w-5 h-5 md:w-6 md:h-6" />
                 Get In Touch
               </span>
             </motion.a>
@@ -137,10 +135,10 @@ export default function HeroSection() {
               href="/resume.pdf"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="group px-8 py-4 rounded-full glass-strong hover:glow-primary transition-all"
+              className="px-6 md:px-8 py-3 md:py-4 rounded-full glass-strong hover:bg-white/10 transition-all"
             >
-              <span className="flex items-center gap-2 text-white font-semibold text-lg">
-                <HiDownload className="w-6 h-6 group-hover:animate-bounce" />
+              <span className="flex items-center gap-2 text-white font-semibold text-base md:text-lg">
+                <HiDownload className="w-5 h-5 md:w-6 md:h-6 group-hover:animate-bounce" />
                 Download CV
               </span>
             </motion.a>
@@ -151,7 +149,7 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
-            className="pt-16"
+            className="pt-6 md:pt-8"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}
