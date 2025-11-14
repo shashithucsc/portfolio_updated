@@ -1,27 +1,16 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import { HiDownload, HiMail } from 'react-icons/hi';
 
 export default function HeroSection() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-
   return (
     <section
       id="home"
-      ref={ref}
-      className="relative min-h-[calc(100vh-72px)] flex items-center justify-center overflow-hidden mesh-background pt-14 md:pt-16 pb-6"
+      className="relative z-0 min-h-[calc(100vh-72px)] flex items-center justify-center overflow-hidden mesh-background pt-14 md:pt-16 pb-6"
     >
       {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-0">
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
@@ -52,7 +41,6 @@ export default function HeroSection() {
       </div>
 
       <motion.div
-        style={{ y, opacity }}
         className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
         <div className="space-y-4 md:space-y-6">
@@ -163,7 +151,7 @@ export default function HeroSection() {
       </motion.div>
 
       {/* Gradient Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-black to-transparent z-20" />
     </section>
   );
 }
