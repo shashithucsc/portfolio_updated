@@ -111,7 +111,7 @@ export default function AboutSection() {
           >
             {[
               { number: '11+', label: 'Projects Completed' },
-              { number: '2+', label: 'Years Experience' },
+              { number: '6m +', label: 'Work Experience ' },
               { number: '8A+1B', label: 'O/L Results' },
               { number: 'BCC', label: 'A/L Results' },
             ].map((stat, index) => (

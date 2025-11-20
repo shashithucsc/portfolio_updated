@@ -149,30 +149,7 @@ export default function SkillsSection() {
                           {skill.name}
                         </h4>
 
-                        {/* Progress Bar */}
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span className="text-gray-400">Proficiency</span>
-                            <span className="text-white font-semibold">
-                              {skill.level}%
-                            </span>
-                          </div>
-                          <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={isInView ? { width: `${skill.level}%` } : {}}
-                              transition={{
-                                duration: 1,
-                                delay: categoryIndex * 0.2 + skillIndex * 0.1 + 0.5,
-                                ease: 'easeOut',
-                              }}
-                              className="h-full rounded-full"
-                              style={{
-                                background: `linear-gradient(90deg, ${skill.color}, ${skill.color}dd)`,
-                              }}
-                            />
-                          </div>
-                        </div>
+                        
                       </div>
                     </motion.div>
                   );
