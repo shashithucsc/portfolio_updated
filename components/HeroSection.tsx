@@ -1,38 +1,65 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HiDownload, HiMail } from 'react-icons/hi';
 
+interface BackgroundElement {
+  width: number;
+  height: number;
+  left: string;
+  top: string;
+  color: string;
+  moveX: number;
+  moveY: number;
+  scale: number;
+  duration: number;
+}
+
 export default function HeroSection() {
+  const [backgroundElements, setBackgroundElements] = useState<BackgroundElement[]>([]);
+
+  useEffect(() => {
+    const elements = [...Array(20)].map(() => ({
+      width: Math.random() * 300 + 50,
+      height: Math.random() * 300 + 50,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      color: ['rgba(99, 102, 241, 0.1)', 'rgba(236, 72, 153, 0.1)', 'rgba(20, 184, 166, 0.1)'][
+        Math.floor(Math.random() * 3)
+      ],
+      moveX: Math.random() * 100 - 50,
+      moveY: Math.random() * 100 - 50,
+      scale: Math.random() + 0.5,
+      duration: Math.random() * 10 + 10,
+    }));
+    setBackgroundElements(elements);
+  }, []);
   return (
     <section
       id="home"
-      className="relative z-0 min-h-[calc(100vh-72px)] flex items-center justify-center overflow-hidden mesh-background pt-14 md:pt-16 pb-6"
+      className="relative z-0 min-h-screen flex items-center justify-center overflow-hidden mesh-background pt-14 md:pt-16 pb-6"
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden z-0">
-        {[...Array(20)].map((_, i) => (
+        {backgroundElements.map((el, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full mix-blend-screen"
             style={{
-              width: Math.random() * 300 + 50,
-              height: Math.random() * 300 + 50,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              background: `radial-gradient(circle, ${
-                ['rgba(99, 102, 241, 0.1)', 'rgba(236, 72, 153, 0.1)', 'rgba(20, 184, 166, 0.1)'][
-                  Math.floor(Math.random() * 3)
-                ]
-              }, transparent)`,
+              width: el.width,
+              height: el.height,
+              left: el.left,
+              top: el.top,
+              background: `radial-gradient(circle, ${el.color}, transparent)`,
             }}
             animate={{
-              x: [0, Math.random() * 100 - 50],
-              y: [0, Math.random() * 100 - 50],
-              scale: [1, Math.random() + 0.5, 1],
+              x: [0, el.moveX],
+              y: [0, el.moveY],
+              scale: [1, el.scale, 1],
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: el.duration,
               repeat: Infinity,
               repeatType: 'reverse',
             }}
@@ -120,7 +147,7 @@ export default function HeroSection() {
             </motion.a>
 
             <motion.a
-              href="/resume.pdf"
+              href="/CV.pdf"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-6 md:px-8 py-3 md:py-4 rounded-full glass-strong hover:bg-white/10 transition-all"

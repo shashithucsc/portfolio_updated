@@ -33,7 +33,7 @@ export default function Footer() {
               {[
                 { icon: HiMail, text: 'shashithrashmika2022@gmail.com', href: 'mailto:shashithrashmika2022@gmail.com' },
                 { icon: HiPhone, text: '+94 76 068 8588', href: 'tel:+94760688588' },
-                { icon: HiLocationMarker, text: 'Anuradhapura, Sri Lanka', href: '#' },
+                { icon: HiLocationMarker, text: 'Sri Lanka', href: '#' },
               ].map((contact) => {
                 const Icon = contact.icon;
                 return (
@@ -158,7 +158,7 @@ export default function Footer() {
               viewport={{ once: true }}
               className="text-gray-400"
             >
-              © 2025 Shashith Rashmika. Crafted with 💜 using Next.js & Framer Motion
+              © 2025 Shashith Rashmika.
             </motion.p>
 
             <motion.div

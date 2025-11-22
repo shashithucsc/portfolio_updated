@@ -126,6 +126,17 @@ const projects = [
     github: '',
     live: '',
   },
+  {
+    id: 12,
+    title: 'Jobs Bank Automation',
+    category: 'Workflow Automation',
+    description: 'A system that automatically collects and updates job vacancies from multiple sources every day. Gathers data from TopJobs, ITPro.lk, and LinkedIn using scheduled triggers. Combined RSS Feed Readers, custom Function nodes, and conditional logic to process and clean the data before storing it in Google Sheets as a central database. The website fetches this data through an API endpoint, allowing anyone to view the most recent job listings in real time.',
+    tags: ['Workflow Automation', 'RSS Feeds', 'Google Sheets API', 'Data Processing'],
+    gradient: 'from-sky-500 to-indigo-500',
+    images: ['/images/jobs_bank/1.png', '/images/jobs_bank/2.png'],
+    github: '',
+    live: '',
+  },
 ];
 
 export default function ProjectsSection() {
