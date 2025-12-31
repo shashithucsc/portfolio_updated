@@ -143,11 +143,126 @@ export default function ProjectsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   return (
-    <section id="projects" ref={ref} className="relative py-32 overflow-hidden bg-black">
-      {/* Background */}
-      <div className="absolute inset-0 mesh-background opacity-30" />
+    <section id="projects" ref={ref} className="relative py-32 overflow-hidden bg-gradient-to-b from-black via-gray-900 to-gray-950" onMouseMove={handleMouseMove}>
+      {/* Mouse-following spotlight */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none transition-opacity duration-500"
+        style={{
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(236, 72, 153, 0.15), transparent 40%)`,
+        }}
+      />
+
+      {/* Subtle gradient accent - matching hero */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/4 left-1/3 w-[700px] h-[700px] bg-pink-500/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-500/5 blur-[120px] rounded-full" />
+        <div className="absolute top-2/3 left-1/2 w-[500px] h-[500px] bg-purple-500/5 blur-[120px] rounded-full" />
+      </div>
+
+      {/* Minimal grid overlay */}
+      <div className="absolute inset-0 z-0 opacity-[0.02]" style={{
+        backgroundImage: `
+          linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+        `,
+        backgroundSize: '100px 100px',
+      }} />
+
+      {/* Diagonal animated lines */}
+      <motion.div
+        className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-pink-500/20 to-transparent"
+        style={{ transform: 'translateX(-25vw)' }}
+        animate={{
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-indigo-500/20 to-transparent"
+        style={{ transform: 'translateX(30vw)' }}
+        animate={{
+          opacity: [0.5, 0.2, 0.5],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+      />
+
+      {/* Floating glass panels */}
+      <motion.div
+        className="absolute top-32 right-20 w-52 h-52 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{ transform: 'rotate(-20deg)' }}
+        animate={{
+          y: [0, -15, 0],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      <motion.div
+        className="absolute bottom-40 left-20 w-64 h-64 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{ transform: 'rotate(15deg)' }}
+        animate={{
+          y: [0, 20, 0],
+          opacity: [0.4, 0.6, 0.4],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1.5,
+        }}
+      />
+
+      <motion.div
+        className="absolute top-1/2 left-1/4 w-48 h-48 rounded-full border border-white/5 bg-gradient-to-br from-pink-500/10 to-transparent"
+        animate={{
+          scale: [1, 1.25, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.5,
+        }}
+      />
+
+      <motion.div
+        className="absolute top-40 left-1/3 w-32 h-32 rounded-xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{ transform: 'rotate(25deg)' }}
+        animate={{
+          rotate: [25, 40, 25],
+          y: [0, -8, 0],
+        }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -161,13 +276,13 @@ export default function ProjectsSection() {
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block mb-4"
+            className="inline-block mb-6"
           >
-            <span className="px-4 py-2 rounded-full glass text-sm font-semibold text-pink-400 border border-pink-500/30">
+            <span className="px-6 py-2 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm text-sm font-semibold text-pink-400">
               My Work
             </span>
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-bold gradient-text mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Featured Projects
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
@@ -183,11 +298,11 @@ export default function ProjectsSection() {
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -8, scale: 1.02 }}
               onClick={() => setSelectedProject(project.id)}
-              className="group relative cursor-pointer"
+              className="group relative cursor-pointer h-full"
             >
-              <div className="glass-strong rounded-2xl overflow-hidden h-full hover:glow-primary transition-all duration-300">
+              <div className="rounded-2xl overflow-hidden h-full border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-pink-500/30 transition-all duration-300">
                 {/* Project Image Placeholder */}
                 <div className={`relative h-48 bg-linear-${project.gradient} overflow-hidden`}>
                   {project.images && project.images[0] ? (
@@ -225,24 +340,29 @@ export default function ProjectsSection() {
 
                 {/* Project Info */}
                 <div className="p-6">
-                  <div className="text-sm text-gray-400 mb-2">{project.category}</div>
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:gradient-text transition-all">
+                  <div className="text-sm font-medium text-pink-400 mb-2">{project.category}</div>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-pink-300 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-gray-400 mb-4 line-clamp-2">
+                  <p className="text-gray-400 mb-4 line-clamp-3 text-sm leading-relaxed">
                     {project.description}
                   </p>
                   
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
+                    {project.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 rounded-full text-xs glass text-gray-300"
+                        className="px-3 py-1 rounded-lg text-xs bg-white/5 text-gray-300 border border-white/10"
                       >
                         {tag}
                       </span>
                     ))}
+                    {project.tags.length > 4 && (
+                      <span className="px-3 py-1 rounded-lg text-xs bg-white/5 text-gray-400 border border-white/10">
+                        +{project.tags.length - 4}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -250,20 +370,16 @@ export default function ProjectsSection() {
           ))}
         </div>
 
-        {/* View All Button */}
+        {/* Stats */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.8 }}
-          className="text-center mt-16"
+          className="text-center mt-16 pt-8 border-t border-white/10"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 glass-strong rounded-full text-white font-semibold hover:glow-primary transition-all"
-          >
-            View All Projects
-          </motion.button>
+          <p className="text-gray-400 text-lg">
+            <span className="text-3xl font-bold text-white">{projects.length}</span> projects completed and counting
+          </p>
         </motion.div>
       </div>
 
@@ -277,11 +393,11 @@ export default function ProjectsSection() {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-lg p-4"
         >
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
             onClick={(e) => e.stopPropagation()}
-            className="glass-strong rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8"
+            className="rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto p-8 border border-white/10 bg-gray-900/95 backdrop-blur-xl"
           >
             {(() => {
               const project = projects.find((p) => p.id === selectedProject);
@@ -289,29 +405,30 @@ export default function ProjectsSection() {
                 <>
                   <div className="flex justify-between items-start mb-6">
                     <div>
-                      <h3 className="text-3xl font-bold gradient-text mb-2">
+                      <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">
                         {project.title}
                       </h3>
-                      <p className="text-gray-400">{project.category}</p>
+                      <p className="text-pink-400 font-medium">{project.category}</p>
                     </div>
                     <button
                       onClick={() => setSelectedProject(null)}
-                      className="p-2 glass rounded-full hover:glow-primary transition-all"
+                      className="p-2 rounded-xl border border-white/10 bg-white/[0.03] hover:border-white/30 transition-all"
                     >
-                      <HiX className="w-6 h-6" />
+                      <HiX className="w-6 h-6 text-gray-400" />
                     </button>
                   </div>
                   
                   {/* Project Images */}
                   {project.images && project.images.length > 0 && (
-                    <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
                       {project.images.map((img, idx) => (
-                        <img 
-                          key={idx}
-                          src={img} 
-                          alt={`${project.title} screenshot ${idx + 1}`}
-                          className="w-full h-48 object-cover rounded-lg"
-                        />
+                        <div key={idx} className="rounded-xl overflow-hidden border border-white/10">
+                          <img 
+                            src={img} 
+                            alt={`${project.title} screenshot ${idx + 1}`}
+                            className="w-full h-56 object-cover hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
                       ))}
                     </div>
                   )}
@@ -322,23 +439,23 @@ export default function ProjectsSection() {
                     </p>
                     
                     <div>
-                      <h4 className="text-xl font-semibold text-white mb-3">Technologies Used</h4>
-                      <div className="flex flex-wrap gap-3">
+                      <h4 className="text-xl font-semibold text-white mb-4">Technologies Used</h4>
+                      <div className="flex flex-wrap gap-2">
                         {project.tags.map((tag) => (
-                          <span key={tag} className="px-4 py-2 glass rounded-lg text-gray-300">
+                          <span key={tag} className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-sm">
                             {tag}
                           </span>
                         ))}
                       </div>
                     </div>
 
-                    <div className="flex gap-4 pt-4">
+                    <div className="flex gap-4 pt-6">
                       {project.live && (
                         <a 
                           href={project.live}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 px-6 py-3 bg-linear-from-indigo-500 bg-linear-to-pink-500 rounded-full text-white font-semibold hover:opacity-90 transition-opacity text-center"
+                          className="flex-1 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-full text-white font-semibold transition-colors text-center"
                         >
                           View Live Demo
                         </a>
@@ -348,9 +465,10 @@ export default function ProjectsSection() {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 px-6 py-3 glass rounded-full text-white font-semibold hover:glow-primary transition-all text-center"
+                          className="flex-1 px-6 py-3 rounded-full border border-white/10 bg-white/[0.02] hover:border-white/30 text-white font-semibold transition-all text-center"
                         >
-                          View Source Code
+                          <HiCode className="w-5 h-5 inline mr-2" />
+                          Source Code
                         </a>
                       )}
                     </div>

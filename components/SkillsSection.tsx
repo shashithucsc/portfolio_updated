@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
   SiReact,
   SiNextdotjs,
@@ -64,11 +64,124 @@ const skillCategories = [
 export default function SkillsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   return (
-    <section id="skills" ref={ref} className="relative py-32 overflow-hidden bg-black">
-      {/* Background */}
-      <div className="absolute inset-0 mesh-background opacity-40" />
+    <section id="skills" ref={ref} className="relative py-32 overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-black" onMouseMove={handleMouseMove}>
+      {/* Mouse-following spotlight */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none transition-opacity duration-500"
+        style={{
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(20, 184, 166, 0.15), transparent 40%)`,
+        }}
+      />
+
+      {/* Subtle gradient accent - matching hero */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/4 right-1/3 w-[700px] h-[700px] bg-teal-500/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-1/3 left-1/4 w-[600px] h-[600px] bg-indigo-500/5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 right-1/2 w-[480px] h-[480px] bg-purple-500/5 blur-[120px] rounded-full" />
+      </div>
+
+      {/* Minimal grid overlay */}
+      <div className="absolute inset-0 z-0 opacity-[0.02]" style={{
+        backgroundImage: `
+          linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+        `,
+        backgroundSize: '100px 100px',
+      }} />
+
+      {/* Horizontal beams */}
+      <motion.div
+        className="absolute left-0 right-0 top-1/3 h-px bg-gradient-to-r from-transparent via-teal-500/20 to-transparent"
+        animate={{
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute left-0 right-0 bottom-1/4 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent"
+        animate={{
+          opacity: [0.6, 0.3, 0.6],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2.5,
+        }}
+      />
+
+      {/* Floating glass panels */}
+      <motion.div
+        className="absolute top-40 left-20 w-56 h-56 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{ transform: 'rotate(18deg)' }}
+        animate={{
+          y: [0, -18, 0],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      <motion.div
+        className="absolute bottom-32 right-20 w-64 h-64 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{ transform: 'rotate(-12deg)' }}
+        animate={{
+          y: [0, 20, 0],
+          opacity: [0.4, 0.6, 0.4],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+
+      <motion.div
+        className="absolute top-1/3 right-1/4 w-44 h-44 rounded-full border border-white/5 bg-gradient-to-br from-teal-500/10 to-transparent"
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      <motion.div
+        className="absolute bottom-40 left-1/3 w-36 h-36 rounded-xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{ transform: 'rotate(-30deg)' }}
+        animate={{
+          rotate: [-30, -45, -30],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.5,
+        }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -82,13 +195,13 @@ export default function SkillsSection() {
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block mb-4"
+            className="inline-block mb-6"
           >
-            <span className="px-4 py-2 rounded-full glass text-sm font-semibold text-teal-400 border border-teal-500/30">
+            <span className="px-6 py-2 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm text-sm font-semibold text-teal-400">
               What I Do Best
             </span>
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-bold gradient-text mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Skills & Expertise
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
@@ -109,47 +222,36 @@ export default function SkillsSection() {
                 {category.title}
               </h3>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {category.skills.map((skill, skillIndex) => {
                   const Icon = skill.icon;
                   return (
                     <motion.div
                       key={skill.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : {}}
                       transition={{
-                        duration: 0.5,
-                        delay: categoryIndex * 0.2 + skillIndex * 0.1,
+                        duration: 0.4,
+                        delay: categoryIndex * 0.15 + skillIndex * 0.05,
                       }}
-                      whileHover={{ y: -10, scale: 1.05 }}
-                      className="group relative"
+                      whileHover={{ y: -4 }}
+                      className="group"
                     >
-                      <div className="glass-strong rounded-2xl p-6 h-full hover:glow-accent transition-all duration-300">
+                      <div className="rounded-xl p-5 h-full border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-teal-500/30 transition-all duration-300">
                         {/* Icon */}
                         <div className="flex items-center justify-center mb-4">
-                          <div className="relative">
-                            <div
-                              className="absolute inset-0 blur-xl opacity-50 group-hover:opacity-75 transition-opacity"
-                              style={{ backgroundColor: skill.color }}
+                          <div className="p-3 rounded-lg border border-white/10 bg-white/[0.03] group-hover:border-teal-500/30 transition-all">
+                            <Icon
+                              className="w-8 h-8"
+                              style={{ color: skill.color }}
                             />
-                            <div
-                              className="relative w-16 h-16 rounded-xl flex items-center justify-center"
-                              style={{ backgroundColor: skill.color + '20' }}
-                            >
-                              <Icon
-                                className="w-10 h-10"
-                                style={{ color: skill.color }}
-                              />
-                            </div>
                           </div>
                         </div>
 
                         {/* Skill Name */}
-                        <h4 className="text-lg font-bold text-white text-center mb-4">
+                        <h4 className="text-sm font-semibold text-white text-center group-hover:text-teal-300 transition-colors">
                           {skill.name}
                         </h4>
-
-                        
                       </div>
                     </motion.div>
                   );
@@ -161,12 +263,12 @@ export default function SkillsSection() {
 
         {/* Additional Skills Cloud */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 1 }}
-          className="mt-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.8 }}
+          className="mt-20 max-w-5xl mx-auto"
         >
-          <div className="glass-strong rounded-3xl p-8">
+          <div className="rounded-2xl p-8 border border-white/10 bg-white/[0.02] backdrop-blur-sm">
             <h3 className="text-2xl font-bold text-white mb-6 text-center">
               Other Technologies
             </h3>
@@ -190,11 +292,11 @@ export default function SkillsSection() {
               ].map((tech, index) => (
                 <motion.span
                   key={tech}
-                  initial={{ opacity: 0, scale: 0 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ delay: 1 + index * 0.05 }}
-                  whileHover={{ scale: 1.1 }}
-                  className="px-4 py-2 glass rounded-full text-sm text-gray-300 hover:text-white hover:glow-primary transition-all cursor-default"
+                  transition={{ delay: 0.9 + index * 0.03 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="px-4 py-2 rounded-lg text-sm bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all cursor-default"
                 >
                   {tech}
                 </motion.span>

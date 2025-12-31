@@ -61,14 +61,41 @@ export default function Navbar() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex items-center"
+              className="flex items-center gap-3"
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-linear-to-r from-indigo-500 to-pink-500 blur-lg opacity-50" />
-                <h1 className="relative text-2xl md:text-3xl font-bold gradient-text">
-                  SR
-                </h1>
-              </div>
+              <motion.a
+                href="#home"
+                className="flex items-center gap-3 group"
+                whileHover={{ scale: 1.02 }}
+              >
+                {/* Animated border ring */}
+                <div className="relative">
+                  <motion.div
+                    className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-75 blur-md"
+                    animate={{
+                      rotate: [0, 360],
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  />
+                  <div className="relative px-4 py-2 rounded-xl border border-white/10 bg-gradient-to-br from-gray-900/90 to-black/90 backdrop-blur-sm">
+                    <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                      SR
+                    </span>
+                  </div>
+                </div>
+                <div className="hidden sm:block">
+                  <div className="text-sm md:text-base font-semibold text-white group-hover:text-indigo-300 transition-colors">
+                    Shashith Rashmika
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    Full Stack Developer
+                  </div>
+                </div>
+              </motion.a>
             </motion.div>
 
             {/* Desktop Navigation */}

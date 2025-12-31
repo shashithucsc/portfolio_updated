@@ -1,8 +1,8 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { HiAcademicCap, HiBookOpen, HiStar } from 'react-icons/hi';
+import { useRef, useState } from 'react';
+import { HiAcademicCap, HiBookOpen, HiStar, HiChevronDown, HiCheckCircle } from 'react-icons/hi';
 
 const education = [
   {
@@ -73,11 +73,134 @@ const certifications = [
 export default function EducationSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [expandedEdu, setExpandedEdu] = useState<number | null>(0);
+  const [expandedCert, setExpandedCert] = useState<number[]>([]);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const toggleCert = (index: number) => {
+    setExpandedCert(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   return (
-    <section id="education" ref={ref} className="relative py-32 overflow-hidden bg-black">
-      {/* Background */}
-      <div className="absolute inset-0 mesh-background opacity-30" />
+    <section id="education" ref={ref} className="relative py-32 overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-black" onMouseMove={handleMouseMove}>
+      {/* Mouse-following spotlight */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none transition-opacity duration-500"
+        style={{
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(168, 85, 247, 0.15), transparent 40%)`,
+        }}
+      />
+
+      {/* Subtle gradient accent - matching hero */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/3 left-1/4 w-[700px] h-[700px] bg-purple-500/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-1/3 right-1/3 w-[600px] h-[600px] bg-indigo-500/5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 right-1/4 w-[450px] h-[450px] bg-pink-500/5 blur-[120px] rounded-full" />
+      </div>
+
+      {/* Minimal grid overlay */}
+      <div className="absolute inset-0 z-0 opacity-[0.02]" style={{
+        backgroundImage: `
+          linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+        `,
+        backgroundSize: '100px 100px',
+      }} />
+
+      {/* Decorative lines */}
+      <motion.div
+        className="absolute top-1/4 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent"
+        animate={{
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-1/3 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent"
+        animate={{
+          opacity: [0.6, 0.3, 0.6],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+      />
+
+      {/* Floating glass panels */}
+      <motion.div
+        className="absolute top-20 right-10 w-56 h-56 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{ transform: 'rotate(-15deg)' }}
+        animate={{
+          y: [0, -20, 0],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      <motion.div
+        className="absolute bottom-32 left-10 w-64 h-64 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{ transform: 'rotate(20deg)' }}
+        animate={{
+          y: [0, 15, 0],
+          opacity: [0.4, 0.6, 0.4],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+
+      <motion.div
+        className="absolute top-1/2 right-1/4 w-44 h-44 rounded-full border border-white/5 bg-gradient-to-br from-indigo-500/10 to-transparent"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.5,
+        }}
+      />
+
+      <motion.div
+        className="absolute bottom-20 right-1/3 w-36 h-36 rounded-xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{ transform: 'rotate(35deg)' }}
+        animate={{
+          rotate: [35, 50, 35],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -91,13 +214,13 @@ export default function EducationSection() {
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block mb-4"
+            className="inline-block mb-6"
           >
-            <span className="px-4 py-2 rounded-full glass text-sm font-semibold text-purple-400 border border-purple-500/30">
+            <span className="px-6 py-2 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm text-sm font-semibold text-purple-400">
               Academic Journey
             </span>
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-bold gradient-text mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Education & Certifications
           </h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
@@ -107,88 +230,90 @@ export default function EducationSection() {
 
         {/* Education Timeline */}
         <div className="mb-20">
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-indigo-500 via-pink-500 to-purple-500 opacity-20" />
-
-            <div className="space-y-12">
-              {education.map((edu, index) => {
-                const Icon = edu.icon;
-                return (
+          <div className="max-w-5xl mx-auto space-y-4">
+            {education.map((edu, index) => {
+              const Icon = edu.icon;
+              const isExpanded = expandedEdu === index;
+              
+              return (
+                <motion.div
+                  key={edu.degree}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="relative group h-full"
+                >
                   <motion.div
-                    key={edu.degree}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.6, delay: index * 0.2 }}
-                    className={`flex flex-col lg:flex-row gap-8 items-center ${
-                      index % 2 === 0 ? 'lg:flex-row-reverse' : ''
-                    }`}
+                    whileHover={{ x: 4 }}
+                    className="rounded-2xl p-6 border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-indigo-500/30 transition-all duration-300 cursor-pointer h-full"
+                    onClick={() => setExpandedEdu(isExpanded ? null : index)}
                   >
-                    {/* Content Card */}
-                    <div className="flex-1 w-full">
-                      <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        className="glass-strong rounded-2xl p-8 hover:glow-primary transition-all duration-300"
-                      >
-                        {/* Header */}
-                        <div className="flex items-start justify-between mb-6">
-                          <div className="flex items-center gap-4">
-                            <div className={`p-3 rounded-xl bg-linear-${edu.color} bg-opacity-10`}>
-                              <Icon className="w-8 h-8 text-white" />
-                            </div>
-                            <div>
-                              <h3 className="text-2xl font-bold text-white mb-1">
-                                {edu.degree}
-                              </h3>
-                              <p className="text-lg text-gray-400">{edu.institution}</p>
-                            </div>
+                    <div className="flex items-start gap-4">
+                      {/* Simple Icon */}
+                      <div className="flex-shrink-0 p-3 rounded-xl border border-white/10 bg-white/[0.03] group-hover:border-indigo-500/30 transition-all">
+                        <Icon className="w-6 h-6 text-indigo-400" />
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-4 mb-3">
+                          <div className="flex-1">
+                            <h3 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">
+                              {edu.degree}
+                            </h3>
+                            <p className="text-base text-gray-400">{edu.institution}</p>
                           </div>
-                          <span className={`hidden sm:block px-4 py-2 rounded-full glass text-sm font-semibold text-white`}>
-                            {edu.period}
-                          </span>
+                          <div className="flex items-center gap-3">
+                            <span className="px-3 py-1 rounded-lg text-sm font-medium text-gray-400 border border-white/10">
+                              {edu.period}
+                            </span>
+                            <motion.div
+                              animate={{ rotate: isExpanded ? 180 : 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="flex-shrink-0"
+                            >
+                              <HiChevronDown className="w-5 h-5 text-gray-500" />
+                            </motion.div>
+                          </div>
                         </div>
 
-                        {/* Mobile Period Display */}
-                        <div className="sm:hidden mb-6">
-                          <span className={`px-4 py-2 rounded-full glass text-sm font-semibold text-white`}>
-                            {edu.period}
-                          </span>
-                        </div>
-
-                        {/* Modules/Description */}
-                        {edu.modules ? (
-                          <div className="flex flex-wrap gap-2">
-                            {edu.modules.map((module, i) => (
-                              <span
-                                key={i}
-                                className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10 transition-colors"
-                              >
-                                {module}
-                              </span>
-                            ))}
+                        {/* Expandable Content */}
+                        <motion.div
+                          initial={false}
+                          animate={{
+                            height: isExpanded ? 'auto' : 0,
+                            opacity: isExpanded ? 1 : 0,
+                          }}
+                          transition={{ duration: 0.3, ease: 'easeInOut' }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pt-4 mt-4 border-t border-white/10">
+                            {edu.modules ? (
+                              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                                {edu.modules.map((module, i) => (
+                                  <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={isExpanded ? { opacity: 1, y: 0 } : {}}
+                                    transition={{ delay: i * 0.02 }}
+                                    className="px-3 py-2 rounded-lg text-sm bg-white/5 text-gray-300 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all h-full min-h-[44px] flex items-center"
+                                  >
+                                    <HiCheckCircle className="w-3 h-3 text-indigo-400 inline mr-1.5 flex-shrink-0" />
+                                    <span className="line-clamp-2">{module}</span>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-gray-300">{edu.description}</p>
+                            )}
                           </div>
-                        ) : (
-                          <p className="text-gray-300">{edu.description}</p>
-                        )}
-                      </motion.div>
+                        </motion.div>
+                      </div>
                     </div>
-
-                    {/* Timeline Dot */}
-                    <div className="hidden lg:block relative">
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={isInView ? { scale: 1 } : {}}
-                        transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
-                        className="w-6 h-6 rounded-full bg-linear-from-indigo-500 bg-linear-to-pink-500 ring-4 ring-black"
-                      />
-                    </div>
-
-                    {/* Spacer for alternating layout */}
-                    <div className="hidden lg:block flex-1" />
                   </motion.div>
-                );
-              })}
-            </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 
@@ -196,42 +321,70 @@ export default function EducationSection() {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="max-w-5xl mx-auto"
         >
-          <h3 className="text-3xl font-bold text-white mb-12 text-center">
+          <h3 className="text-3xl font-bold text-white mb-10">
             Professional Certifications
           </h3>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-6 md:grid-rows-2">
             {certifications.map((group, groupIndex) => (
               <motion.div
                 key={group.provider}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.7 + groupIndex * 0.1 }}
-                className="glass-strong rounded-2xl p-8 hover:glow-secondary transition-all duration-300"
+                transition={{ duration: 0.4, delay: 0.5 + groupIndex * 0.1 }}
+                className="flex"
               >
-                <h4 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                  <HiAcademicCap className="w-6 h-6 text-purple-400" />
-                  {group.provider}
-                </h4>
-                <div className="space-y-6">
-                  {group.items.map((cert, index) => (
-                    <div key={index} className="relative pl-6 border-l border-white/10">
-                      <div className="absolute left-[-5px] top-2 w-2.5 h-2.5 rounded-full bg-purple-500" />
-                      <div className="flex justify-between items-start mb-1">
-                        <h5 className="text-lg font-semibold text-white group-hover:text-purple-300 transition-colors">
-                          {cert.title}
-                        </h5>
-                        <span className="text-xs font-mono text-gray-500 whitespace-nowrap ml-4 mt-1">
-                          {cert.date}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-400 leading-relaxed">
-                        {cert.desc}
-                      </p>
+                <div className="rounded-2xl p-6 border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-purple-500/30 transition-all duration-300 w-full flex flex-col">
+                  {/* Header */}
+                  <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
+                    <div className="p-2 rounded-lg border border-white/10 bg-white/[0.03]">
+                      <HiAcademicCap className="w-5 h-5 text-purple-400" />
                     </div>
-                  ))}
+                    <div className="flex-1">
+                      <h4 className="text-xl font-bold text-white">
+                        {group.provider}
+                      </h4>
+                    </div>
+                    <span className="text-xs font-medium text-gray-500 bg-white/5 px-2.5 py-1 rounded-full">
+                      {group.items.length}
+                    </span>
+                  </div>
+
+                  {/* Certification Items */}
+                  <div className="space-y-4 flex-1">
+                    {group.items.map((cert, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={isInView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ delay: 0.6 + groupIndex * 0.1 + index * 0.05 }}
+                        whileHover={{ x: 4 }}
+                        className="group/item"
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="flex-shrink-0 mt-1.5">
+                            <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between gap-2 mb-1">
+                              <h5 className="text-sm font-semibold text-white group-hover/item:text-purple-300 transition-colors">
+                                {cert.title}
+                              </h5>
+                              <span className="text-xs font-mono text-gray-500 whitespace-nowrap">
+                                {cert.date}
+                              </span>
+                            </div>
+                            <p className="text-xs text-gray-400 leading-relaxed">
+                              {cert.desc}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             ))}

@@ -1,153 +1,219 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { HiMail, HiPhone, HiLocationMarker, HiPaperAirplane } from 'react-icons/hi';
 import { FaGithub, FaLinkedin, FaTwitter, FaDribbble } from 'react-icons/fa';
 
 export default function Footer() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
   return (
-    <footer id="contact" className="relative py-20 overflow-hidden bg-black border-t border-white/10">
-      {/* Background */}
-      <div className="absolute inset-0 mesh-background opacity-20" />
+    <footer id="contact" className="relative py-20 overflow-hidden bg-gradient-to-b from-black via-gray-900 to-gray-950 border-t border-white/10" onMouseMove={handleMouseMove}>
+      {/* Mouse-following spotlight */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none transition-opacity duration-500"
+        style={{
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(99, 102, 241, 0.15), transparent 40%)`,
+        }}
+      />
+
+      {/* Gradient accents */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-pink-500/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 right-1/3 w-[600px] h-[600px] bg-indigo-500/5 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-500/5 blur-[120px] rounded-full" />
+      </div>
+
+      {/* Minimal grid overlay */}
+      <div className="absolute inset-0 z-0 opacity-[0.02]" style={{
+        backgroundImage: `
+          linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+        `,
+        backgroundSize: '100px 100px',
+      }} />
+
+      {/* Animated diagonal lines */}
+      <motion.div
+        className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-pink-500/20 to-transparent"
+        animate={{
+          x: ['-100%', '100%'],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent"
+        animate={{
+          x: ['100%', '-100%'],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      />
+
+      {/* Floating glass panels */}
+      <motion.div
+        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{
+          transform: 'rotate(12deg)',
+        }}
+        animate={{
+          y: [0, -20, 0],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      <motion.div
+        className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{
+          transform: 'rotate(-15deg)',
+        }}
+        animate={{
+          y: [0, 20, 0],
+          opacity: [0.4, 0.6, 0.4],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+      />
+
+      <motion.div
+        className="absolute top-1/2 left-10 w-48 h-48 rounded-full border border-white/5 bg-gradient-to-br from-pink-500/10 to-transparent backdrop-blur-sm"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+
+      <motion.div
+        className="absolute top-20 right-1/3 w-32 h-32 rounded-xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        style={{
+          transform: 'rotate(45deg)',
+        }}
+        animate={{
+          rotate: [45, 60, 45],
+          y: [0, -10, 0],
+        }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          {/* Left Side - Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
-          >
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
-                Let&apos;s Work Together
-              </h2>
-              <p className="text-xl text-gray-400">
-                Have a project in mind? Let&apos;s create something amazing together.
-              </p>
-            </div>
+        {/* Header Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            Let&apos;s Work Together
+          </h2>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Have a project in mind? Let&apos;s create something amazing together.
+          </p>
+        </motion.div>
 
-            <div className="space-y-4">
-              {[
-                { icon: HiMail, text: 'shashithrashmika2022@gmail.com', href: 'mailto:shashithrashmika2022@gmail.com' },
-                { icon: HiPhone, text: '+94 76 068 8588', href: 'tel:+94760688588' },
-                { icon: HiLocationMarker, text: 'Sri Lanka', href: '#' },
-              ].map((contact) => {
-                const Icon = contact.icon;
-                return (
-                  <motion.a
-                    key={contact.text}
-                    href={contact.href}
-                    whileHover={{ x: 10 }}
-                    className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors"
-                  >
-                    <div className="w-12 h-12 rounded-lg glass flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-indigo-400" />
-                    </div>
-                    <span className="text-lg">{contact.text}</span>
-                  </motion.a>
-                );
-              })}
-            </div>
-
-            {/* Social Links */}
-            <div className="flex gap-4 pt-4">
-              {[
-                { icon: FaGithub, href: 'https://github.com/shashithucsc', label: 'GitHub' },
-                { icon: FaLinkedin, href: 'https://www.linkedin.com/in/shashith-rashmika-piyathilaka-ucsc/', label: 'LinkedIn' },
-                { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter' },
-                { icon: FaDribbble, href: 'https://dribbble.com', label: 'Dribbble' },
-              ].map((social) => {
-                const Icon = social.icon;
-                return (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="w-12 h-12 rounded-lg glass flex items-center justify-center hover:glow-primary transition-all"
-                    aria-label={social.label}
-                  >
-                    <Icon className="w-6 h-6" />
-                  </motion.a>
-                );
-              })}
-            </div>
-          </motion.div>
-
-          {/* Right Side - Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <form className="glass-strong rounded-2xl p-8 space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-3 rounded-lg glass border border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all text-white placeholder-gray-500"
-                    placeholder="John Doe"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-3 rounded-lg glass border border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all text-white placeholder-gray-500"
-                    placeholder="john@example.com"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  className="w-full px-4 py-3 rounded-lg glass border border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all text-white placeholder-gray-500"
-                  placeholder="Project Inquiry"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-lg glass border border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all text-white placeholder-gray-500 resize-none"
-                  placeholder="Tell me about your project..."
-                />
-              </div>
-
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full px-6 py-4 bg-linear-from-indigo-500 bg-linear-to-pink-500 rounded-lg text-white font-semibold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+        {/* Contact Cards Grid */}
+        <div className="grid md:grid-cols-3 gap-6 mb-16">
+          {[
+            { icon: HiMail, text: 'shashithrashmika2022@gmail.com', href: 'mailto:shashithrashmika2022@gmail.com', label: 'Email' },
+            { icon: HiPhone, text: '+94 76 068 8588', href: 'tel:+94760688588', label: 'Phone' },
+            { icon: HiLocationMarker, text: 'Sri Lanka', href: '#', label: 'Location' },
+          ].map((contact, index) => {
+            const Icon = contact.icon;
+            return (
+              <motion.a
+                key={contact.text}
+                href={contact.href}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="group p-6 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-indigo-500/30 transition-all"
               >
-                Send Message
-                <HiPaperAirplane className="w-5 h-5" />
-              </motion.button>
-            </form>
-          </motion.div>
+                <div className="flex flex-col items-center text-center space-y-4">
+                  <div className="w-16 h-16 rounded-xl border border-white/10 bg-white/[0.02] flex items-center justify-center group-hover:border-indigo-500/30 transition-colors">
+                    <Icon className="w-8 h-8 text-indigo-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">{contact.label}</p>
+                    <p className="text-gray-300 group-hover:text-white transition-colors">{contact.text}</p>
+                  </div>
+                </div>
+              </motion.a>
+            );
+          })}
         </div>
+
+        {/* Social Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex justify-center gap-4 mb-16"
+        >
+          {[
+            { icon: FaGithub, href: 'https://github.com/shashithucsc', label: 'GitHub' },
+            { icon: FaLinkedin, href: 'https://www.linkedin.com/in/shashith-rashmika-piyathilaka-ucsc/', label: 'LinkedIn' },
+            { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter' },
+            { icon: FaDribbble, href: 'https://dribbble.com', label: 'Dribbble' },
+          ].map((social, index) => {
+            const Icon = social.icon;
+            return (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.1, y: -5 }}
+                whileTap={{ scale: 0.9 }}
+                className="w-14 h-14 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-sm flex items-center justify-center hover:border-indigo-500/30 transition-all"
+                aria-label={social.label}
+              >
+                <Icon className="w-6 h-6 text-gray-300" />
+              </motion.a>
+            );
+          })}
+        </motion.div>
 
         {/* Bottom Footer */}
         <div className="pt-8 border-t border-white/10">
@@ -156,9 +222,9 @@ export default function Footer() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-gray-400"
+              className="text-gray-500 text-sm"
             >
-              © 2025 Shashith Rashmika.
+              © 2025 Shashith Rashmika. All rights reserved.
             </motion.p>
 
             <motion.div
@@ -167,14 +233,11 @@ export default function Footer() {
               viewport={{ once: true }}
               className="flex gap-6"
             >
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Privacy
+              <a href="#" className="text-gray-500 hover:text-white transition-colors text-sm">
+                Privacy Policy
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Terms
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Sitemap
+              <a href="#" className="text-gray-500 hover:text-white transition-colors text-sm">
+                Terms of Service
               </a>
             </motion.div>
           </div>
@@ -188,9 +251,9 @@ export default function Footer() {
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-8 right-8 w-14 h-14 bg-linear-from-indigo-500 bg-linear-to-pink-500 rounded-full flex items-center justify-center shadow-lg z-30 pulse-glow"
+        className="fixed bottom-8 right-8 w-14 h-14 bg-indigo-600 hover:bg-indigo-700 rounded-full flex items-center justify-center shadow-lg shadow-indigo-500/30 z-30"
       >
-        <HiMail className="w-7 h-7 text-white" />
+        <HiPaperAirplane className="w-6 h-6 text-white" />
       </motion.a>
     </footer>
   );
