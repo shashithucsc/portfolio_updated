@@ -17,7 +17,7 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="relative py-20 overflow-hidden bg-gradient-to-b from-black via-gray-900 to-gray-950 border-t border-white/10" onMouseMove={handleMouseMove}>
+    <footer id="contact" className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-gradient-to-b from-black via-gray-900 to-gray-950 border-t border-white/10" onMouseMove={handleMouseMove}>
       {/* Mouse-following spotlight */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none transition-opacity duration-500"
@@ -137,18 +137,18 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-12 lg:mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-4 px-4">
             Let&apos;s Work Together
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4">
             Have a project in mind? Let&apos;s create something amazing together.
           </p>
         </motion.div>
 
         {/* Contact Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-10 md:mb-12 lg:mb-16">
           {[
             { icon: HiMail, text: 'shashithrashmika2022@gmail.com', href: 'mailto:shashithrashmika2022@gmail.com', label: 'Email' },
             { icon: HiPhone, text: '+94 76 068 8588', href: 'tel:+94760688588', label: 'Phone' },
@@ -163,16 +163,16 @@ export default function Footer() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="group p-6 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-indigo-500/30 transition-all"
+                whileHover={{ y: -3 }}
+                className="group p-5 md:p-6 rounded-xl md:rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-indigo-500/30 transition-all"
               >
-                <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="w-16 h-16 rounded-xl border border-white/10 bg-white/[0.02] flex items-center justify-center group-hover:border-indigo-500/30 transition-colors">
-                    <Icon className="w-8 h-8 text-indigo-400" />
+                <div className="flex flex-col items-center text-center space-y-3 md:space-y-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl border border-white/10 bg-white/[0.02] flex items-center justify-center group-hover:border-indigo-500/30 transition-colors">
+                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-indigo-400" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500 mb-1">{contact.label}</p>
-                    <p className="text-gray-300 group-hover:text-white transition-colors">{contact.text}</p>
+                    <p className="text-xs sm:text-sm text-gray-500 mb-1">{contact.label}</p>
+                    <p className="text-sm sm:text-base text-gray-300 group-hover:text-white transition-colors break-all">{contact.text}</p>
                   </div>
                 </div>
               </motion.a>
@@ -185,7 +185,7 @@ export default function Footer() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex justify-center gap-4 mb-16"
+          className="flex justify-center gap-3 md:gap-4 mb-10 md:mb-12 lg:mb-16"
         >
           {[
             { icon: FaGithub, href: 'https://github.com/shashithucsc', label: 'GitHub' },
@@ -204,26 +204,25 @@ export default function Footer() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.1, y: -5 }}
+                whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-14 h-14 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-sm flex items-center justify-center hover:border-indigo-500/30 transition-all"
+                className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-sm flex items-center justify-center hover:border-indigo-500/30 transition-all"
                 aria-label={social.label}
               >
-                <Icon className="w-6 h-6 text-gray-300" />
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-300" />
               </motion.a>
             );
           })}
         </motion.div>
 
         {/* Bottom Footer */}
-        <div className="pt-8 border-t border-white/10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-6 md:pt-8 border-t border-white/10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-gray-500 text-sm"
-            >
+              className="text-gray-500 text-xs sm:text-sm text-center md:text-left">
               © 2025 Shashith Rashmika. All rights reserved.
             </motion.p>
 
@@ -231,12 +230,12 @@ export default function Footer() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="flex gap-6"
+              className="flex gap-4 md:gap-6"
             >
-              <a href="#" className="text-gray-500 hover:text-white transition-colors text-sm">
+              <a href="#" className="text-gray-500 hover:text-white transition-colors text-xs sm:text-sm">
                 Privacy Policy
               </a>
-              <a href="#" className="text-gray-500 hover:text-white transition-colors text-sm">
+              <a href="#" className="text-gray-500 hover:text-white transition-colors text-xs sm:text-sm">
                 Terms of Service
               </a>
             </motion.div>
@@ -249,11 +248,12 @@ export default function Footer() {
         href="#contact"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="fixed bottom-8 right-8 w-14 h-14 bg-indigo-600 hover:bg-indigo-700 rounded-full flex items-center justify-center shadow-lg shadow-indigo-500/30 z-30"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 w-14 h-14 sm:w-14 sm:h-14 bg-indigo-600 hover:bg-indigo-700 rounded-full flex items-center justify-center shadow-lg shadow-indigo-500/30 z-30"
+        aria-label="Contact"
       >
-        <HiPaperAirplane className="w-6 h-6 text-white" />
+        <HiPaperAirplane className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </motion.a>
     </footer>
   );

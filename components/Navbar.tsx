@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { HiMenu, HiX, HiMoon, HiSun } from 'react-icons/hi';
+import { HiMenu, HiX } from 'react-icons/hi';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -15,7 +15,6 @@ const navLinks = [
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const { scrollY } = useScroll();
   
@@ -42,11 +41,6 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark');
-  };
 
   return (
     <>
@@ -82,7 +76,7 @@ export default function Navbar() {
                     }}
                   />
                   <div className="relative px-4 py-2 rounded-xl border border-white/10 bg-gradient-to-br from-gray-900/90 to-black/90 backdrop-blur-sm">
-                    <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    <span className="text-2xl md:text-3xl font-bold text-indigo-400">
                       SR
                     </span>
                   </div>
@@ -130,24 +124,12 @@ export default function Navbar() {
               ))}
             </motion.div>
 
-            {/* Theme Toggle & Mobile Menu Button */}
-            <div className="flex items-center space-x-4">
-              <motion.button
-                whileHover={{ scale: 1.1, rotate: 180 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={toggleTheme}
-                className="p-2 rounded-full glass hover:glow-primary transition-all"
-              >
-                {isDarkMode ? (
-                  <HiSun className="w-6 h-6 text-yellow-400" />
-                ) : (
-                  <HiMoon className="w-6 h-6 text-indigo-400" />
-                )}
-              </motion.button>
-
+            {/* Mobile Menu Button */}
+            <div className="flex items-center">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 rounded-full glass hover:glow-primary transition-all"
+                className="md:hidden p-3 rounded-full glass hover:glow-primary transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Toggle menu"
               >
                 {isMenuOpen ? (
                   <HiX className="w-6 h-6" />
@@ -167,9 +149,9 @@ export default function Navbar() {
           x: isMenuOpen ? 0 : '100%',
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="fixed top-0 right-0 bottom-0 w-64 glass-strong z-50 md:hidden border-l border-white/10"
+        className="fixed top-0 right-0 bottom-0 w-72 sm:w-80 glass-strong z-50 md:hidden border-l border-white/10 safe-area-inset"
       >
-        <div className="flex flex-col h-full p-6 pt-24">
+        <div className="flex flex-col h-full p-6 pt-24 pb-safe">
           {navLinks.map((link, index) => (
             <motion.a
               key={link.name}
@@ -178,7 +160,7 @@ export default function Navbar() {
               animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : 50 }}
               transition={{ delay: index * 0.1 }}
               onClick={() => setIsMenuOpen(false)}
-              className={`py-4 px-4 rounded-lg mb-2 transition-all ${
+              className={`py-4 px-5 rounded-lg mb-2 transition-all min-h-[48px] flex items-center ${
                 activeSection === link.href.substring(1)
                   ? 'glass text-white glow-primary'
                   : 'text-gray-300 hover:glass hover:text-white'

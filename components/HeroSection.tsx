@@ -46,7 +46,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative z-0 min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-black pt-14 md:pt-16 pb-6"
+      className="relative z-0 min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-black pt-24 md:pt-28 lg:pt-20 pb-20 md:pb-24"
       onMouseMove={handleMouseMove}
     >
       {/* Mouse-following spotlight */}
@@ -64,7 +64,7 @@ export default function HeroSection() {
       </div>
 
       {/* Animated glass circles */}
-      <div className="absolute inset-0 overflow-hidden z-0 flex items-center justify-center">
+      <div className="absolute inset-0 overflow-hidden z-0 flex items-center justify-center hidden md:flex">
         {backgroundElements.map((el, i) => (
           <motion.div
             key={i}
@@ -100,7 +100,7 @@ export default function HeroSection() {
 
       {/* Glass panels - floating geometric shapes */}
       <motion.div
-        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm hidden lg:block"
         style={{
           transform: 'rotate(-12deg)',
         }}
@@ -116,7 +116,7 @@ export default function HeroSection() {
       />
 
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
+        className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm hidden lg:block"
         style={{
           transform: 'rotate(15deg)',
         }}
@@ -146,11 +146,11 @@ export default function HeroSection() {
       />
 
       <motion.div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
       >
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh]">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center min-h-[calc(100vh-12rem)] md:min-h-[calc(100vh-10rem)] lg:min-h-[80vh]">
           {/* Left side - Text Content */}
-          <div className="space-y-6 order-2 lg:order-1 text-center lg:text-left flex flex-col items-center lg:items-start">
+          <div className="space-y-4 md:space-y-6 order-2 lg:order-1 text-center lg:text-left flex flex-col items-center lg:items-start w-full">
             {/* Greeting Text */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -158,8 +158,8 @@ export default function HeroSection() {
               transition={{ delay: 0.3 }}
               className="w-full"
             >
-              <p className="text-indigo-400 text-lg md:text-xl font-medium mb-2">Hello, I&apos;m</p>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
+              <p className="text-indigo-400 text-base md:text-lg lg:text-xl font-medium mb-1 md:mb-2">Hello, I&apos;m</p>
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-2 md:mb-4 leading-tight">
                 <span className="text-white">Shashith Rashmika</span>
               </h1>
             </motion.div>
@@ -171,13 +171,13 @@ export default function HeroSection() {
               transition={{ delay: 0.5 }}
               className="space-y-3 w-full"
             >
-              <h2 className="text-xl md:text-3xl font-semibold text-gray-200">
+              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-200">
                 BSc. Information Systems
               </h2>
-              <h2 className="text-xl md:text-3xl font-semibold text-gray-200">
+              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-200">
                 Full Stack Developer
               </h2>
-              <p className="text-base md:text-lg text-gray-400 max-w-xl pt-2 mx-auto lg:mx-0">
+              <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-xl pt-1 md:pt-2 mx-auto lg:mx-0 px-4 sm:px-2 leading-relaxed">
                 Passionate about building innovative web applications with modern technologies
               </p>
             </motion.div>
@@ -187,28 +187,28 @@ export default function HeroSection() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.7 }}
-              className="flex flex-wrap gap-4 pt-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2 md:pt-4 justify-center lg:justify-start w-full px-2 sm:px-0"
             >
               <motion.a
                 href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-full bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/30"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-500/30 w-full sm:w-auto"
               >
-                <span className="flex items-center gap-2 text-white font-semibold text-lg">
-                  <HiMail className="w-6 h-6" />
+                <span className="flex items-center justify-center gap-2 text-white font-semibold text-base sm:text-lg">
+                  <HiMail className="w-5 h-5 sm:w-6 sm:h-6" />
                   Get In Touch
                 </span>
               </motion.a>
 
               <motion.a
                 href="/Shashith_rashmika_CV_SE.pdf"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-full glass-strong hover:bg-white/10 transition-all border border-white/10"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-6 sm:px-8 py-3 sm:py-4 rounded-full glass-strong hover:bg-white/10 transition-all border border-white/10 w-full sm:w-auto"
               >
-                <span className="flex items-center gap-2 text-white font-semibold text-lg">
-                  <HiDownload className="w-6 h-6" />
+                <span className="flex items-center justify-center gap-2 text-white font-semibold text-base sm:text-lg">
+                  <HiDownload className="w-5 h-5 sm:w-6 sm:h-6" />
                   Download CV
                 </span>
               </motion.a>
@@ -216,7 +216,7 @@ export default function HeroSection() {
           </div>
 
           {/* Right side - Avatar */}
-          <div className="flex items-center justify-center order-1 lg:order-2">
+          <div className="flex items-center justify-center order-1 lg:order-2 mb-4 md:mb-0">
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
@@ -226,7 +226,7 @@ export default function HeroSection() {
                 damping: 20,
                 delay: 0.2,
               }}
-              className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
+              className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-96 lg:h-96"
             >
               {/* Animated glow ring */}
               <motion.div 
@@ -275,7 +275,7 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 hidden sm:block"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}

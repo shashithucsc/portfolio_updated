@@ -75,7 +75,7 @@ export default function SkillsSection() {
   };
 
   return (
-    <section id="skills" ref={ref} className="relative py-32 overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-black" onMouseMove={handleMouseMove}>
+    <section id="skills" ref={ref} className="relative py-16 md:py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-black" onMouseMove={handleMouseMove}>
       {/* Mouse-following spotlight */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none transition-opacity duration-500"
@@ -189,28 +189,28 @@ export default function SkillsSection() {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-16 lg:mb-20"
         >
           <motion.div
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block mb-6"
+            className="inline-block mb-4 md:mb-6"
           >
-            <span className="px-6 py-2 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm text-sm font-semibold text-teal-400">
+            <span className="px-4 sm:px-6 py-2 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm text-xs sm:text-sm font-semibold text-teal-400">
               What I Do Best
             </span>
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 px-4">
             Skills & Expertise
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-3xl mx-auto px-4">
             Technologies and tools I use to bring ideas to life
           </p>
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="space-y-16">
+        <div className="space-y-10 md:space-y-12 lg:space-y-16">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
@@ -218,11 +218,11 @@ export default function SkillsSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
             >
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8 text-center px-4">
                 {category.title}
               </h3>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
                 {category.skills.map((skill, skillIndex) => {
                   const Icon = skill.icon;
                   return (
@@ -234,22 +234,22 @@ export default function SkillsSection() {
                         duration: 0.4,
                         delay: categoryIndex * 0.15 + skillIndex * 0.05,
                       }}
-                      whileHover={{ y: -4 }}
+                      whileHover={{ y: -3 }}
                       className="group"
                     >
-                      <div className="rounded-xl p-5 h-full border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-teal-500/30 transition-all duration-300">
+                      <div className="rounded-lg md:rounded-xl p-4 md:p-5 h-full border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-teal-500/30 transition-all duration-300">
                         {/* Icon */}
-                        <div className="flex items-center justify-center mb-4">
-                          <div className="p-3 rounded-lg border border-white/10 bg-white/[0.03] group-hover:border-teal-500/30 transition-all">
+                        <div className="flex items-center justify-center mb-3 md:mb-4">
+                          <div className="p-2 md:p-3 rounded-lg border border-white/10 bg-white/[0.03] group-hover:border-teal-500/30 transition-all">
                             <Icon
-                              className="w-8 h-8"
+                              className="w-6 h-6 md:w-8 md:h-8"
                               style={{ color: skill.color }}
                             />
                           </div>
                         </div>
 
                         {/* Skill Name */}
-                        <h4 className="text-sm font-semibold text-white text-center group-hover:text-teal-300 transition-colors">
+                        <h4 className="text-xs sm:text-sm font-semibold text-white text-center group-hover:text-teal-300 transition-colors">
                           {skill.name}
                         </h4>
                       </div>
@@ -266,13 +266,13 @@ export default function SkillsSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.8 }}
-          className="mt-20 max-w-5xl mx-auto"
+          className="mt-12 md:mt-16 lg:mt-20 max-w-5xl mx-auto"
         >
-          <div className="rounded-2xl p-8 border border-white/10 bg-white/[0.02] backdrop-blur-sm">
-            <h3 className="text-2xl font-bold text-white mb-6 text-center">
+          <div className="rounded-xl md:rounded-2xl p-6 md:p-8 border border-white/10 bg-white/[0.02] backdrop-blur-sm">
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-4 md:mb-6 text-center">
               Other Technologies
             </h3>
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap justify-center gap-2 md:gap-3">
               {[
                 'REST API',
                 'MVC Architecture',
@@ -296,7 +296,7 @@ export default function SkillsSection() {
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ delay: 0.9 + index * 0.03 }}
                   whileHover={{ scale: 1.05 }}
-                  className="px-4 py-2 rounded-lg text-sm bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all cursor-default"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all cursor-default"
                 >
                   {tech}
                 </motion.span>

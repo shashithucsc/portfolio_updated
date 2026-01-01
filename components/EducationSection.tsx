@@ -94,7 +94,7 @@ export default function EducationSection() {
   };
 
   return (
-    <section id="education" ref={ref} className="relative py-32 overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-black" onMouseMove={handleMouseMove}>
+    <section id="education" ref={ref} className="relative py-16 md:py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-black" onMouseMove={handleMouseMove}>
       {/* Mouse-following spotlight */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none transition-opacity duration-500"
@@ -208,29 +208,29 @@ export default function EducationSection() {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-16 lg:mb-20"
         >
           <motion.div
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block mb-6"
+            className="inline-block mb-4 md:mb-6"
           >
-            <span className="px-6 py-2 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm text-sm font-semibold text-purple-400">
+            <span className="px-4 sm:px-6 py-2 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm text-xs sm:text-sm font-semibold text-purple-400">
               Academic Journey
             </span>
           </motion.div>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 px-4">
             Education & Certifications
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-3xl mx-auto px-4">
             Continuous learning and professional development
           </p>
         </motion.div>
 
         {/* Education Timeline */}
-        <div className="mb-20">
-          <div className="max-w-5xl mx-auto space-y-4">
+        <div className="mb-12 md:mb-16 lg:mb-20">
+          <div className="max-w-5xl mx-auto space-y-3 md:space-y-4">
             {education.map((edu, index) => {
               const Icon = edu.icon;
               const isExpanded = expandedEdu === index;
@@ -244,8 +244,8 @@ export default function EducationSection() {
                   className="relative group h-full"
                 >
                   <motion.div
-                    whileHover={{ x: 4 }}
-                    className="rounded-2xl p-6 border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-indigo-500/30 transition-all duration-300 cursor-pointer h-full"
+                    whileHover={{ x: 2 }}
+                    className="rounded-xl md:rounded-2xl p-5 md:p-6 border border-white/10 bg-white/[0.02] backdrop-blur-sm hover:border-indigo-500/30 transition-all duration-300 cursor-pointer h-full"
                     onClick={() => setExpandedEdu(isExpanded ? null : index)}
                   >
                     <div className="flex items-start gap-4">
