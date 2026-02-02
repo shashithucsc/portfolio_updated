@@ -13,7 +13,7 @@ const highlights = [
     hoverBorder: 'group-hover:border-indigo-500/50',
   },
   {
-    value: '3.5',
+    value: '3.49',
     label: 'GPA',
     color: 'text-pink-400',
     hoverBorder: 'group-hover:border-pink-500/50',

@@ -6,7 +6,7 @@ import { HiAcademicCap, HiBookOpen, HiStar, HiChevronDown, HiCheckCircle } from 
 
 const education = [
   {
-    degree: 'BSc. in Information Systems (3.5/4.00 GPA)',
+    degree: 'BSc. in Information Systems (3.49/4.00 GPA)',
     institution: 'University of Colombo School of Computing (UCSC)',
     period: '2023 - 2026',
     modules: [
