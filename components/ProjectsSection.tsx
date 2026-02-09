@@ -2,11 +2,55 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { HiExternalLink, HiCode, HiX } from 'react-icons/hi';
+import { HiExternalLink, HiCode, HiX, HiDocumentText, HiDownload } from 'react-icons/hi';
 
-const projects = [
+interface Project {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  tags: string[];
+  gradient: string;
+  images: string[];
+  github: string;
+  live: string;
+  fullDescription?: string;
+  pdfDocument?: string;
+}
+
+const projects: Project[] = [
   {
     id: 1,
+    title: 'AI-Powered Web Terminal',
+    category: 'AI & Cloud Infrastructure',
+    description: 'Revolutionary web terminal that transforms natural language into Linux commands using Google Gemini AI. Features real-time WebSocket communication, secure command execution, and production deployment on DigitalOcean with Nginx reverse proxy and PM2 process management.',
+    tags: ['Python', 'FastAPI', 'WebSockets', 'Gemini AI', 'Nginx', 'PM2', 'Linux'],
+    gradient: 'from-cyan-500 via-blue-500 to-purple-500',
+    images: ['/images/ai-terminal/1.png', '/images/ai-terminal/2.png', '/images/ai-terminal/3.png'],
+    github: '',
+    live: 'https://ai.shashithrashmika.tech',
+    pdfDocument: '/images/ai-terminal/ai-terminal.pdf',
+    fullDescription: `The AI Web Terminal is a web application that lets users control a Linux server using simple English sentences instead of difficult terminal commands.
+
+Key Features:
+• Natural Language Processing: Convert English sentences like "Compress this folder" or "Find all Python files" into executable Linux commands
+• Real-Time Communication: WebSocket-based architecture for instant command execution and live output streaming
+• AI-Powered Intelligence: Google Gemini AI integration for accurate command translation and context understanding
+• Production-Grade Deployment: Hosted on DigitalOcean with Nginx reverse proxy, SSL encryption, and PM2 for 24/7 uptime
+• Secure Execution: Safe command execution environment with proper error handling and output capture
+
+Technical Implementation:
+• Backend: FastAPI with Uvicorn for high-performance asynchronous operations
+• Frontend: Responsive terminal UI with WebSocket client for real-time updates
+• Infrastructure: Nginx for HTTPS/SSL termination and reverse proxy, PM2 for process management and auto-restart
+• AI Integration: Google Gemini AI API for natural language understanding and command generation
+• Security: Let's Encrypt SSL certificates for encrypted communication
+
+System Architecture:
+The project follows a modern client-server architecture with WebSocket connections for persistent, bidirectional communication. Nginx acts as a reverse proxy, handling HTTPS traffic and routing requests to the FastAPI backend. PM2 ensures the application runs continuously with automatic restarts on failure. The AI layer intelligently converts user intent into safe, executable Linux commands, making server management accessible to users of all skill levels.`,
+  },
+  {
+    id: 2,
     title: 'HomeGenie',
     category: 'Full Stack Web Application',
     description: 'On-demand home services platform with booking system, supplier management, and modular MVC architecture. Features user authentication, service categories, and real-time booking.',
@@ -17,7 +61,7 @@ const projects = [
     live: '',
   },
   {
-    id: 2,
+    id: 3,
     title: 'ClubSync',
     category: 'Full Stack',
     description: 'Comprehensive club volunteer and event management system with QR code-based attendance tracking, points system, and mobile-first responsive design for university clubs.',
@@ -28,7 +72,7 @@ const projects = [
     live: '',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Chill Campus',
     category: 'Social Platform',
     description: 'Modern social networking platform designed for university students featuring posts, real-time chat, event management, and community building with a clean, intuitive interface.',
@@ -39,7 +83,7 @@ const projects = [
     live: 'https://chill-campus-2025.vercel.app',
   },
   {
-    id: 4,
+    id: 5,
     title: 'Athagili',
     category: 'Matchmaking Platform',
     description: 'Sri Lankan matchmaking application with real-time chat functionality, user profiles, and mobile-first responsive design. Built with modern tech stack for seamless user experience.',
@@ -50,7 +94,7 @@ const projects = [
     live: 'https://athagili.vercel.app/',
   },
   {
-    id: 5,
+    id: 6,
     title: 'Book Management System',
     category: 'CRUD Application',
     description: 'Complete book management system with user authentication, CRUD operations, REST APIs, and automated testing using Selenium. Built with Spring Boot backend and React frontend.',
@@ -61,7 +105,7 @@ const projects = [
     live: '',
   },
   {
-    id: 6,
+    id: 7,
     title: 'Chatty Chatty',
     category: 'Real-time Chat',
     description: 'Real-time messaging application built with MERN stack and Socket.io for instant communication. Features user authentication, private messaging, and live message updates.',
@@ -72,7 +116,7 @@ const projects = [
     live: '',
   },
   {
-    id: 7,
+    id: 8,
     title: 'Laptop Price Predictor',
     category: 'Machine Learning',
     description: 'Machine learning model for predicting laptop prices using Random Forest algorithm. Analyzes specifications like RAM, processor, GPU, and brand to estimate accurate pricing.',
@@ -83,7 +127,7 @@ const projects = [
     live: '',
   },
   {
-    id: 8,
+    id: 9,
     title: 'AI Chat-bot',
     category: 'AI Application',
     description: 'Intelligent chatbot powered by Gemini API. Built with PHP backend and Flask integration for natural language processing and conversational AI capabilities.',
@@ -94,7 +138,7 @@ const projects = [
     live: '',
   },
   {
-    id: 9,
+    id: 10,
     title: 'Zenith',
     category: 'UI/UX Design',
     description: 'Modern space tourism booking platform with stunning visual design, smooth animations, and immersive user experience. Features destination exploration and booking interface.',
@@ -105,7 +149,7 @@ const projects = [
     live: 'https://zenith-pearl-mu.vercel.app/',
   },
   {
-    id: 10,
+    id: 11,
     title: 'Jumbo Track',
     category: 'UI/UX Design',
     description: 'Innovative UI/UX design for elephant-train collision early-warning system. Focuses on real-time tracking, alert mechanisms, and user-friendly interface for wildlife conservation.',
@@ -116,7 +160,7 @@ const projects = [
     live: '',
   },
   {
-    id: 11,
+    id: 12,
     title: 'Cafe Hifi',
     category: 'Desktop Application',
     description: 'Comprehensive cafe management system with POS functionality, inventory tracking, sales analytics, and real-time reporting. Built with JavaFX for rich desktop experience.',
@@ -127,7 +171,7 @@ const projects = [
     live: '',
   },
   {
-    id: 12,
+    id: 13,
     title: 'Jobs Bank Automation',
     category: 'Workflow Automation',
     description: 'A system that automatically collects and updates job vacancies from multiple sources every day. Gathers data from TopJobs, ITPro.lk, and LinkedIn using scheduled triggers. Combined RSS Feed Readers, custom Function nodes, and conditional logic to process and clean the data before storing it in Google Sheets as a central database. The website fetches this data through an API endpoint, allowing anyone to view the most recent job listings in real time.',
@@ -391,31 +435,121 @@ export default function ProjectsSection() {
                   {/* Modal Body */}
                   <div className="p-6 md:p-8 grid md:grid-cols-3 gap-8">
                      <div className="md:col-span-2 space-y-6">
-                        <p className="text-gray-300 text-lg leading-relaxed">{project.description}</p>
+                        {/* Main Description */}
+                        {project.fullDescription ? (
+                           <div className="space-y-4 text-gray-300 leading-relaxed">
+                              {project.fullDescription.split('\n\n').map((paragraph, idx) => {
+                                 // Check if it's a header (ends with :)
+                                 if (paragraph.trim().endsWith(':')) {
+                                    return (
+                                       <h4 key={idx} className="text-white font-bold text-lg mt-6 mb-2">
+                                          {paragraph.trim().replace(':', '')}
+                                       </h4>
+                                    );
+                                 }
+                                 // Check if it's a bullet list
+                                 else if (paragraph.includes('•')) {
+                                    return (
+                                       <ul key={idx} className="space-y-2 ml-4">
+                                          {paragraph.split('\n').filter(line => line.trim()).map((line, lineIdx) => (
+                                             <li key={lineIdx} className="flex items-start gap-3">
+                                                <span className="text-purple-400 mt-1">▸</span>
+                                                <span className="flex-1">{line.replace('•', '').trim()}</span>
+                                             </li>
+                                          ))}
+                                       </ul>
+                                    );
+                                 }
+                                 // Regular paragraph
+                                 else {
+                                    return (
+                                       <p key={idx} className="text-gray-300 leading-relaxed">
+                                          {paragraph}
+                                       </p>
+                                    );
+                                 }
+                              })}
+                           </div>
+                        ) : (
+                           <p className="text-gray-300 text-lg leading-relaxed">{project.description}</p>
+                        )}
                         
-                        <div>
-                           <h4 className="text-white font-semibold mb-3">Technologies</h4>
+                        {/* Technologies Section */}
+                        <div className="pt-4 border-t border-white/10">
+                           <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
+                              <HiCode className="text-purple-400" />
+                              Technologies Used
+                           </h4>
                            <div className="flex flex-wrap gap-2">
                               {project.tags.map((tag) => (
-                                 <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-300">
+                                 <span key={tag} className="px-3 py-1.5 bg-purple-500/10 border border-purple-400/30 rounded-lg text-sm text-purple-300 font-medium hover:bg-purple-500/20 transition-colors">
                                     {tag}
                                  </span>
                               ))}
                            </div>
                         </div>
+
+                        {/* Additional Images Gallery */}
+                        {project.images && project.images.length > 1 && !project.pdfDocument && (
+                           <div className="pt-4">
+                              <h4 className="text-white font-semibold mb-3">Project Gallery</h4>
+                              <div className="grid grid-cols-2 gap-3">
+                                 {project.images.slice(1, 4).map((img, idx) => (
+                                    <div key={idx} className="relative h-32 rounded-lg overflow-hidden border border-white/10 hover:border-purple-400/50 transition-colors">
+                                       <img src={img} alt={`${project.title} screenshot ${idx + 2}`} className="w-full h-full object-cover" />
+                                    </div>
+                                 ))}
+                              </div>
+                           </div>
+                        )}
                      </div>
 
+                     {/* Action Buttons Sidebar */}
                      <div className="flex flex-col gap-4">
                         {project.live && (
-                           <a href={project.live} target="_blank" rel="noopener noreferrer" className="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold text-center transition-colors">
+                           <a href={project.live} target="_blank" rel="noopener noreferrer" className="group w-full py-3.5 bg-purple-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-xl font-bold text-center transition-all shadow-lg hover:shadow-purple-500/50 flex items-center justify-center gap-2">
+                              <HiExternalLink className="text-xl group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                               View Live Demo
                            </a>
                         )}
                         {project.github && (
-                           <a href={project.github} target="_blank" rel="noopener noreferrer" className="w-full py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-bold text-center transition-colors flex items-center justify-center gap-2">
-                              <HiCode className="text-lg" /> Source Code
+                           <a href={project.github} target="_blank" rel="noopener noreferrer" className="group w-full py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-purple-400/50 text-white rounded-xl font-bold text-center transition-all flex items-center justify-center gap-2">
+                              <HiCode className="text-xl group-hover:scale-110 transition-transform" /> 
+                              Source Code
                            </a>
                         )}
+
+                        {/* PDF Documentation */}
+                        {project.pdfDocument && (
+                           <div className="relative group">
+                              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-xl opacity-0 group-hover:opacity-100 blur transition-opacity duration-300" />
+                              <a 
+                                 href={project.pdfDocument} 
+                                 target="_blank" 
+                                 rel="noopener noreferrer" 
+                                 className="relative w-full py-3.5 bg-gradient-to-r from-cyan-600/90 to-blue-600/90 hover:from-cyan-600 hover:to-blue-600 border border-cyan-400/30 text-white rounded-xl font-bold text-center transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-cyan-500/50"
+                              >
+                                 <HiDocumentText className="text-xl" />
+                                 Technical Guide
+                                 <HiDownload className="text-sm" />
+                              </a>
+                           </div>
+                        )}
+                        
+                        {/* Project Info Cards */}
+                        <div className="mt-4 space-y-3">
+                           <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
+                              <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">Category</div>
+                              <div className="text-white font-semibold">{project.category}</div>
+                           </div>
+                           
+                           {project.tags.length > 0 && (
+                              <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
+                                 <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">Tech Stack</div>
+                                 <div className="text-white font-semibold">{project.tags.length} Technologies</div>
+                              </div>
+                           )}
+                        </div>
                      </div>
                   </div>
                 </div>
