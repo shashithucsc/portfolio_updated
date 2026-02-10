@@ -271,20 +271,23 @@ export default function HeroSection() {
         </div>
 
         {/* Scroll Indicator */}
-        <motion.div
+        <motion.a
+          href="#about"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
-          className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 hidden sm:block"
+          className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 hidden sm:block cursor-pointer"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2"
+            className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2 hover:border-white/50 transition-colors"
           >
             <motion.div className="w-1.5 h-3 rounded-full bg-white/50" />
           </motion.div>
-        </motion.div>
+        </motion.a>
       </motion.div>
 
       {/* Gradient Overlay */}

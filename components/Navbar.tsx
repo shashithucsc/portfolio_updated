@@ -2,20 +2,24 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { HiMenu, HiX } from 'react-icons/hi';
 
 const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Education', href: '#education' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '#home', type: 'hash' },
+  { name: 'About', href: '#about', type: 'hash' },
+  { name: 'Projects', href: '#projects', type: 'hash' },
+  // { name: 'Skills', href: '#skills', type: 'hash' },
+  // { name: 'Education', href: '#education', type: 'hash' },
+  { name: 'Notes', href: '/notes', type: 'page' },
+  { name: 'Contact', href: '#contact', type: 'hash' },
 ];
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const pathname = usePathname();
   const { scrollY } = useScroll();
   
   const backgroundColor = useTransform(
@@ -26,7 +30,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navLinks.map(link => link.href.substring(1));
+      const sections = navLinks.filter(link => link.type === 'hash').map(link => link.href.substring(1));
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -41,6 +45,22 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const isLinkActive = (link: typeof navLinks[0]) => {
+    if (link.type === 'page') {
+      return pathname === link.href;
+    }
+    return activeSection === link.href.substring(1);
+  };
+
+  // Get correct href based on current page
+  const getHref = (link: typeof navLinks[0]) => {
+    if (link.type === 'page') {
+      return link.href;
+    }
+    // For hash links: if not on homepage, prepend '/' to navigate to homepage section
+    return pathname === '/' ? link.href : `/${link.href}`;
+  };
 
   return (
     <>
@@ -57,39 +77,37 @@ export default function Navbar() {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-3"
             >
-              <motion.a
-                href="#home"
-                className="flex items-center gap-3 group"
-                whileHover={{ scale: 1.02 }}
-              >
-                {/* Animated border ring */}
-                <div className="relative">
-                  <motion.div
-                    className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-75 blur-md"
-                    animate={{
-                      rotate: [0, 360],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                  />
-                  <div className="relative px-4 py-2 rounded-xl border border-white/10 bg-gradient-to-br from-gray-900/90 to-black/90 backdrop-blur-sm">
-                    <span className="text-2xl md:text-3xl font-bold text-indigo-400">
-                      SR
-                    </span>
+              <Link href="/" className="flex items-center gap-3 group">
+                <motion.div whileHover={{ scale: 1.02 }} className="flex items-center gap-3">
+                  {/* Animated border ring */}
+                  <div className="relative flex-shrink-0">
+                    <motion.div
+                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-75 blur-md"
+                      animate={{
+                        rotate: [0, 360],
+                      }}
+                      transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    />
+                    <div className="relative px-4 py-2 rounded-xl border border-white/10 bg-gradient-to-br from-gray-900/90 to-black/90 backdrop-blur-sm">
+                      <span className="text-2xl md:text-3xl font-bold text-indigo-400">
+                        SR
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="hidden sm:block">
-                  <div className="text-sm md:text-base font-semibold text-white group-hover:text-indigo-300 transition-colors">
-                    Shashith Rashmika
+                  <div className="hidden sm:block">
+                    <div className="text-sm md:text-base font-semibold text-white group-hover:text-indigo-300 transition-colors">
+                      Shashith Rashmika
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Full Stack Developer
+                    </div>
                   </div>
-                  <div className="text-xs text-gray-500">
-                    Full Stack Developer
-                  </div>
-                </div>
-              </motion.a>
+                </motion.div>
+              </Link>
             </motion.div>
 
             {/* Desktop Navigation */}
@@ -99,29 +117,33 @@ export default function Navbar() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="hidden md:flex items-center space-x-1"
             >
-              {navLinks.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * index }}
-                  className={`relative px-4 py-2 rounded-lg transition-all ${
-                    activeSection === link.href.substring(1)
-                      ? 'text-white'
-                      : 'text-gray-300 hover:text-white'
-                  }`}
-                >
-                  {activeSection === link.href.substring(1) && (
-                    <motion.div
-                      layoutId="activeNav"
-                      className="absolute inset-0 glass rounded-lg"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{link.name}</span>
-                </motion.a>
-              ))}
+              {navLinks.map((link, index) => {
+                // Use Link for all navigation to support both page and hash navigation
+                const isActive = isLinkActive(link);
+                const href = getHref(link);
+                
+                return (
+                  <motion.div key={link.name}>
+                    <Link
+                      href={href}
+                      className={`relative px-4 py-2 rounded-lg transition-all block ${
+                        isActive
+                          ? 'text-white'
+                          : 'text-gray-300 hover:text-white'
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeNav"
+                          className="absolute inset-0 glass rounded-lg"
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                      <span className="relative z-10">{link.name}</span>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </motion.div>
 
             {/* Mobile Menu Button */}
@@ -152,23 +174,31 @@ export default function Navbar() {
         className="fixed top-0 right-0 bottom-0 w-72 sm:w-80 glass-strong z-50 md:hidden border-l border-white/10 safe-area-inset"
       >
         <div className="flex flex-col h-full p-6 pt-24 pb-safe">
-          {navLinks.map((link, index) => (
-            <motion.a
-              key={link.name}
-              href={link.href}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : 50 }}
-              transition={{ delay: index * 0.1 }}
-              onClick={() => setIsMenuOpen(false)}
-              className={`py-4 px-5 rounded-lg mb-2 transition-all min-h-[48px] flex items-center ${
-                activeSection === link.href.substring(1)
-                  ? 'glass text-white glow-primary'
-                  : 'text-gray-300 hover:glass hover:text-white'
-              }`}
-            >
-              {link.name}
-            </motion.a>
-          ))}
+          {navLinks.map((link, index) => {
+            const isActive = isLinkActive(link);
+            const href = getHref(link);
+            
+            return (
+              <motion.div
+                key={link.name}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : 50 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Link
+                  href={href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`py-4 px-5 rounded-lg mb-2 transition-all min-h-[48px] flex items-center ${
+                    isActive
+                      ? 'glass text-white glow-primary'
+                      : 'text-gray-300 hover:glass hover:text-white'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
 
