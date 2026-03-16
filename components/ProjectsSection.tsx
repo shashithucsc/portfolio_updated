@@ -20,6 +20,17 @@ interface Project {
 
 const projects: Project[] = [
   {
+    id: 14,
+    title: 'Dynamic AI powered theme Generation',
+    category: 'AI Web Application',
+    description: 'An AI-powered web application built with Next.js that dynamically generates immersive UI environments from a single text prompt. By orchestrating Google Gemini for design logic and copywriting alongside Hugging Face SDXL for real-time image generation, the platform instantly synthesizes cohesive color palettes, cinematic visuals, and glassmorphic layouts into a seamless, highly interactive experience.',
+    tags: ['Next.js', 'Google Gemini', 'Hugging Face SDXL', 'AI', 'Tailwind CSS'],
+    gradient: 'from-blue-500 to-indigo-500',
+    images: ['/images/dw/1.png', '/images/dw/2.png', '/images/dw/3.png'],
+    github: '',
+    live: 'https://dw.shashithrashmika.tech/',
+  },
+  {
     id: 1,
     title: 'AI-Powered Web Terminal',
     category: 'AI & Cloud Infrastructure',
