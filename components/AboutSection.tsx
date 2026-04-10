@@ -9,11 +9,11 @@ import Link from 'next/link';
 const START_DATE = '2025-10-20T09:00:00'; // Internship Start Date
 
 const experiencePoints = [
-  "Worked on real-world client projects contributing to both frontend and backend development.",
+  "Worked on real-world client projects across frontend and backend development, while supporting UI/UX implementation, manual testing, feature validation, and overall quality assurance.",
   "Built web interfaces using <span class='text-indigo-400 font-semibold'>Next.js</span> and implemented interactive 3D features with <span class='text-pink-400 font-semibold'>Three.js</span>.",
   "Developed workflow automations using <span class='text-amber-400 font-semibold'>n8n</span> to support internal processes.",
   "Assisted with backend integrations using <span class='text-red-400 font-semibold'>Laravel</span> and Filament.",
-  "Participated in quality assurance, including manual testing and feature validation, and supported UI/UX implementation."
+  "Contributed to an AI influencer creator project using <span class='text-indigo-400 font-semibold'>Flux.2</span>  and <span class='text-indigo-400 font-semibold'>Kling 3.0</span> in ComfyUI Cloud by creating datasets from image references, training a <span class='text-pink-400 font-semibold'>LoRA</span> for identity consistency, and integrating it into ComfyUI through <span class='text-amber-400 font-semibold'>Hugging Face</span>."
 ];
 
 export default function AboutSection() {
