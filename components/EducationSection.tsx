@@ -11,8 +11,8 @@ const education = [
     period: '2023 - 2026',
     modules: [
       'Human Computer Interaction', 'Data Structures & Algorithms', 'Programming & Problem Solving',
-      'OOP & RAD', 'Software Quality Assurance', 'Machine Learning', 'Database Management',
-      'Web Development', 'Software Engineering', 'System Analysis & Design', 'Computer Networks'
+      'Object-Oriented Programming', 'Software Quality Assurance', 'Machine Learning', 'Database Management',
+      'Web Development', 'Software Engineering', 'System Analysis & Design', 'Computer Networks', 'Information Systems Security', 'Linux Fundamentals'
     ],
     icon: HiAcademicCap,
     color: 'from-indigo-500 to-purple-500',
